@@ -1,0 +1,81 @@
+<button class="remove_button" (click)="removeCurrentCharacter()">&times;</button>
+<div class="character_info">
+  <label>
+      Name
+      <input
+          type="text"
+          name="charName"
+          [(ngModel)]="currentCharacter().name"
+          (ngModelChange)="updateCharacter()" />
+  </label>
+  <label>
+    Server
+    <select
+      name="server"
+      [(ngModel)]="currentCharacter().server"
+      (ngModelChange)="updateCharacter()">
+      <option value="">Choose One</option>
+      @for (region of environment.regions; track $index) {
+        <optgroup [label]="region.name">
+        </optgroup>
+        @for (dataCenter of region.dataCenters; track $index) {
+          <optgroup [label]="'&nbsp;&nbsp;' + dataCenter.name">
+            @for (server of dataCenter.servers; track $index) {
+              <option [value]="server">{{server}}</option>
+            }
+          </optgroup>
+        }
+      }
+    </select>
+  </label>
+  <label>
+      Current Level
+      <input
+          type="number"
+          name="currentLevel"
+          step="1"
+          [min]="1"
+          [max]="currentCharacter().goalLevel"
+          [(ngModel)]="currentCharacter().currentLevel"
+          (blur)="correctCurrentLevel()"
+          (ngModelChange)="updateCharacter()" />
+  </label>
+  <label>
+      XP To Level
+      <input
+          type="number"
+          name="currentProgress"
+          [(ngModel)]="currentCharacter().currentProgress"
+          (blur)="correctCurrentProgress()"
+          (ngModelChange)="updateCharacter()" /> / {{xpLevel()}}
+  </label>
+  <div class="xp_total"><div class="xp_progress" [style.width]="(currentCharacter().currentProgress * 100 / xpLevel()) > 100 ? '100%' : (currentCharacter().currentProgress * 100 / xpLevel()) + '%'"></div></div>
+  <label>
+      Goal Level
+      <input
+          type="number"
+          name="goalLevel"
+          step="1"
+          [min]="currentCharacter().currentLevel"
+          [max]="environment.levelThresholds.length - 1"
+          [(ngModel)]="currentCharacter().goalLevel"
+          (blur)="correctGoalLevel()"
+          (ngModelChange)="updateCharacter()" />
+  </label>
+  <div>XP NEEDED: {{xpNeeded()}}</div>
+</div>
+<div class="win_section">
+  <h2>Frontline</h2>
+  <div class="win_readout_section"><button class="add_win_button" title="Add Frontline Daily 1st Place" (click)="addProgress(environment.frontLineDailyWinExp)">+</button> {{frontLineDailyWins()}} wins in Daily Frontline</div>
+  <div class="win_readout_section"><button class="add_win_button" title="Add Frontline Daily 2nd Place" (click)="addProgress(environment.frontLineDailyLoss2Exp)">+</button> {{frontLineDailyLosses2()}} 2nd Place Losses in Daily Frontline</div>
+  <div class="win_readout_section"><button class="add_win_button" title="Add Frontline Daily 3rd Place" (click)="addProgress(environment.frontLineDailyLossExp)">+</button> {{frontLineDailyLosses()}} 3rd Place Losses in Daily Frontline</div>
+  <div class="win_readout_section"><button class="add_win_button" title="Add Frontline 1st Place" (click)="addProgress(environment.frontLineWinExp)">+</button> {{frontLineWins()}} wins in Frontline</div>
+  <div class="win_readout_section"><button class="add_win_button" title="Add Frontline 2nd Place" (click)="addProgress(environment.frontLineLoss2Exp)">+</button> {{frontLineLosses2()}} 2nd Place Losses in Frontline</div>
+  <div class="win_readout_section"><button class="add_win_button" title="Add Frontline 3rd Place" (click)="addProgress(environment.frontLineLossExp)">+</button> {{frontLineLosses()}} 3rd Place Losses in Frontline</div>
+  <h2>Crystalline Conflict</h2>
+  <div class="win_readout_section"><button class="add_win_button" title="Add Crystalline Conflict Win" (click)="addProgress(environment.crystallineWinExp)">+</button> {{crystallineWins()}} wins in Crystalline Conflict</div>
+  <div class="win_readout_section"><button class="add_win_button" title="Add Crystalline Conflict Loss" (click)="addProgress(environment.crystallineLossExp)">+</button> {{crystallineLosses()}} losses in Crystalline Conflict</div>
+  <h2>Rival Wings</h2>
+  <div class="win_readout_section"><button class="add_win_button" title="Add Rival Wings Win" (click)="addProgress(environment.rivalWingsWinExp)">+</button> {{rivalWingsWins()}} wins in Rival Wings</div>
+  <div class="win_readout_section"><button class="add_win_button" title="Add Rival Wings Loss" (click)="addProgress(environment.rivalWingsLossExp)">+</button> {{rivalWingsLosses()}} losses in Rival Wings</div>
+</div>

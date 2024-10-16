@@ -1,0 +1,15 @@
+<div class="container">
+    @for (character of characterList(); track $index) {
+        <button
+            class="user-tab"
+            [class.active]="$index === currentIndex()"
+            (click)="changeIndex($index)">
+            {{character.name !== "" ? character.name : ('Unnamed Warrior of Light ' + $index) }}{{character.server !== "" ? '@' + character.server : ''}}
+        </button>
+    }
+    <button
+        class="user-tab"
+        (click)="newCharacter()">
+        +
+    </button>
+</div>
