@@ -17,6 +17,29 @@ button {
     text-align: center;
 }
 
+.circle {
+    background-color: #fff;
+    color: #333;
+    font-weight: 400;
+    display: inline-block;
+    vertical-align: text-top;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    margin-right: 0.25rem;
+    font-size: 0.75rem;
+}
+
+input, select {
+    border: 1px solid #777;
+    background-color: #111;
+    color: #fff;
+    border-radius: .25rem;
+    padding-left: .25rem;
+    padding-right: .25rem;
+}
+
 .remove_button {
     float: right;
 }

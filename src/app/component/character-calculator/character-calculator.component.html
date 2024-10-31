@@ -9,7 +9,7 @@
           (ngModelChange)="updateCharacter()" />
   </label>
   <label>
-    Server
+    Server <span class="circle" title="This data is only saved in your browser's Local Storage.">?</span>
     <select
       name="server"
       [(ngModel)]="currentCharacter().server"
@@ -65,7 +65,7 @@
   <div>XP NEEDED: {{xpNeeded()}}</div>
 </div>
 <div class="win_section">
-  <h2>Frontline</h2>
+  <h2>Frontline <span class="circle" title="How many wins of each type required to get to the goal level. Click the + to add XP for the specified match">?</span></h2>
   <div class="win_readout_section"><button class="add_win_button" title="Add Frontline Daily 1st Place" (click)="addProgress(environment.frontLineDailyWinExp)">+</button> {{frontLineDailyWins()}} wins in Daily Frontline</div>
   <div class="win_readout_section"><button class="add_win_button" title="Add Frontline Daily 2nd Place" (click)="addProgress(environment.frontLineDailyLoss2Exp)">+</button> {{frontLineDailyLosses2()}} 2nd Place Losses in Daily Frontline</div>
   <div class="win_readout_section"><button class="add_win_button" title="Add Frontline Daily 3rd Place" (click)="addProgress(environment.frontLineDailyLossExp)">+</button> {{frontLineDailyLosses()}} 3rd Place Losses in Daily Frontline</div>
