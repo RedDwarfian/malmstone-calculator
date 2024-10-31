@@ -64,7 +64,7 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Angular
         run: |
-          ${{ steps.detect-package-manager.outputs.runner }} ng build \
+          ${{ steps.detect-package-manager.outputs.runner }} ng deploy \
             --base-href "${{ steps.pages.outputs.origin }}${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
       - name: Upload artifact
