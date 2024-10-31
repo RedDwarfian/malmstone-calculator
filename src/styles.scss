@@ -16,3 +16,13 @@ body {
     align-content: center;
     flex-wrap: wrap;
 }
+
+a {
+    color: #ccc;
+    text-decoration: none;
+    
+    &:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+}

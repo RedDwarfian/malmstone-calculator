@@ -58,8 +58,8 @@ export class CharacterCalculatorComponent {
     this.valid = !isNaN(needed) && !isNaN(level);
 
     if (this.valid) {
-      this.xpNeeded.set(needed);
-      this.xpLevel.set(level);
+      this.xpNeeded.set(Math.max(needed, 0));
+      this.xpLevel.set(Math.max(level, 0));
     }
   }
 
