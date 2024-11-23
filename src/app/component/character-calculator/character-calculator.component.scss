@@ -41,7 +41,8 @@ input, select {
 }
 
 .remove_button {
-    float: right;
+    position: absolute;
+    right: 1rem;
 }
 
 .character_info {
