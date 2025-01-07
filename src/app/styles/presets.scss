@@ -1,23 +1,23 @@
 @mixin button {
     display: inline-block;
     text-wrap: nowrap;
-    background: transparent;
-    color: #fff;
-    border: 1px solid #777;
-    border-radius: .25rem;
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     padding: .25rem .5rem;
     cursor: pointer;
 
     &:hover {
-        background: #224;
+        background: var(--button-bg-color-hover);
     }
 
-    &.active {
-        background: #227;
+    &.active, &:active {
+        background: var(--button-bg-color-active);
         cursor: unset;
 
         &:hover {
-            background: #227;
+            background: var(--button-bg-color-active);
         }
     }
 }
