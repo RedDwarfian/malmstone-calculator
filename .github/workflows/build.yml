@@ -67,6 +67,8 @@ jobs:
           ${{ steps.detect-package-manager.outputs.runner }} ng deploy \
             --base-href "${{ steps.pages.outputs.origin }}${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
+        env:
+          GH_TOKEN: "${{secrets.PERSONAL_TOKEN}}"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
