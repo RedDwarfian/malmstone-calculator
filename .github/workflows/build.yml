@@ -22,7 +22,7 @@ concurrency:
 
 env:
   BUILD_PATH: "." # default value when not using subfolders
-  GH_TOKEN: "${{secrets.GITHUB_TOKEN}}"
+  GH_TOKEN: "${{secrets.GH_TOKEN}}"
   # BUILD_PATH: subfolder
 
 jobs:
