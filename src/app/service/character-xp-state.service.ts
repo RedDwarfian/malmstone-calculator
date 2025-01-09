@@ -4,11 +4,13 @@ import { LocalDataService } from './local-data.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CharacterXpStateService {
-  public characterArray: WritableSignal<CharacterXp[]> = signal([] as CharacterXp[]);
-  public deadlineDate: WritableSignal<string|null> = signal(null);
+  public characterArray: WritableSignal<CharacterXp[]> = signal(
+    [] as CharacterXp[],
+  );
+  public deadlineDate: WritableSignal<string | null> = signal(null);
   public loaded: WritableSignal<boolean> = signal(false);
   public currentIndex: WritableSignal<number> = signal(0);
   private localDataService = inject(LocalDataService);
@@ -18,14 +20,21 @@ export class CharacterXpStateService {
   constructor() {
     // TODO: Load from localDataService
     // This is default if there is no entry in the localDataService.
-    this.characterArray.set(this.localDataService.getData(this.localDataKey) ??
-      [structuredClone(environment.newCharacterDefaults)]);
-    this.deadlineDate.set(this.localDataService.getData(this.localDataDateKey) ?? null);
+    this.characterArray.set(
+      this.localDataService.getData(this.localDataKey) ?? [
+        structuredClone(environment.newCharacterDefaults),
+      ],
+    );
+    this.deadlineDate.set(
+      this.localDataService.getData(this.localDataDateKey) ?? null,
+    );
     this.loaded.set(true);
   }
 
   addCharacter(): void {
-    this.characterArray().push(structuredClone(environment.newCharacterDefaults));
+    this.characterArray().push(
+      structuredClone(environment.newCharacterDefaults),
+    );
     this.saveData();
   }
 
@@ -37,7 +46,9 @@ export class CharacterXpStateService {
   removeCurrentCharacter() {
     // If the array is of length 1, reset the array.
     if (this.characterArray().length === 1) {
-      this.characterArray.set([structuredClone(environment.newCharacterDefaults)]);
+      this.characterArray.set([
+        structuredClone(environment.newCharacterDefaults),
+      ]);
     } else {
       // Slice and splice the currentIndex out of the array.
       this.characterArray.set(this.characterArray().slice());

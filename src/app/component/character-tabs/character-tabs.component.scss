@@ -1,25 +1,25 @@
-@use '../../styles/presets.scss';
+@use "../../styles/presets.scss";
 
 :host {
-    overflow: hidden;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  overflow: hidden;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .container {
-    display: flex;
-    overflow-y: hidden;
-    overflow-x: auto;
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 .user-tab {
-    @include presets.button;
-    background-color: var(--window-bg-color);
-    border-bottom-width: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+  @include presets.button;
+  background-color: var(--window-bg-color);
+  border-bottom-width: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 
-    + .user-tab {
-        margin-left: -1px;
-    }
+  + .user-tab {
+    margin-left: -1px;
+  }
 }

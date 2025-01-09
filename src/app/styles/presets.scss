@@ -1,23 +1,24 @@
 @mixin button {
-    display: inline-block;
-    text-wrap: nowrap;
-    background: var(--bg-color);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: .25rem .5rem;
-    cursor: pointer;
+  display: inline-block;
+  text-wrap: nowrap;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--button-bg-color-hover);
+  }
+
+  &.active,
+  &:active {
+    background: var(--button-bg-color-active);
+    cursor: unset;
 
     &:hover {
-        background: var(--button-bg-color-hover);
+      background: var(--button-bg-color-active);
     }
-
-    &.active, &:active {
-        background: var(--button-bg-color-active);
-        cursor: unset;
-
-        &:hover {
-            background: var(--button-bg-color-active);
-        }
-    }
+  }
 }

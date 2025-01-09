@@ -1,4 +1,13 @@
-import { Component, WritableSignal, Signal, computed, inject, signal, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  WritableSignal,
+  Signal,
+  computed,
+  inject,
+  signal,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { CharacterXp } from '../../interface/character-xp.interface';
 import { CharacterXpStateService } from '../../service/character-xp-state.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -6,60 +15,105 @@ import { environment } from '../../../environments/environment';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-character-calculator',
-    imports: [FormsModule, ReactiveFormsModule],
-    templateUrl: './character-calculator.component.html',
-    styleUrl: './character-calculator.component.scss'
+  selector: 'app-character-calculator',
+  imports: [FormsModule, ReactiveFormsModule],
+  templateUrl: './character-calculator.component.html',
+  styleUrl: './character-calculator.component.scss',
 })
 export class CharacterCalculatorComponent implements OnInit, OnDestroy {
   private characterStateService = inject(CharacterXpStateService);
-  public currentCharacter: Signal<CharacterXp> = computed(() =>
-    this.characterStateService.characterArray()[this.characterStateService.currentIndex()]);
-  public currentDate: WritableSignal<string|null> = this.characterStateService.deadlineDate;
-  
+  public currentCharacter: Signal<CharacterXp> = computed(
+    () =>
+      this.characterStateService.characterArray()[
+        this.characterStateService.currentIndex()
+      ],
+  );
+  public currentDate: WritableSignal<string | null> =
+    this.characterStateService.deadlineDate;
+
   public environment = environment;
   private valid = true;
-  private intervalRef: NodeJS.Timeout;
+  private intervalRef: ReturnType<typeof setInterval>;
 
   public xpNeeded: WritableSignal<number> = signal(0);
   public xpLevel: WritableSignal<number> = signal(0);
-  public frontLineDailyWins: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.frontLineDailyWinExp));
-  public frontLineDailyLosses2: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.frontLineDailyLoss2Exp));
-  public frontLineDailyLosses: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.frontLineDailyLossExp));
-  public frontLineWins: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.frontLineWinExp));
-  public frontLineLosses2: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.frontLineLoss2Exp));
-  public frontLineLosses: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.frontLineLossExp));
-  public crystallineWins: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.crystallineWinExp));
-  public crystallineLosses: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.crystallineLossExp));
-  public rivalWingsWins: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.rivalWingsWinExp));
-  public rivalWingsLosses: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.rivalWingsLossExp));
+  public frontLineDailyWins: Signal<number> = computed(() =>
+    Math.ceil(this.xpNeeded() / environment.frontLineDailyWinExp),
+  );
+  public frontLineDailyLosses2: Signal<number> = computed(() =>
+    Math.ceil(this.xpNeeded() / environment.frontLineDailyLoss2Exp),
+  );
+  public frontLineDailyLosses: Signal<number> = computed(() =>
+    Math.ceil(this.xpNeeded() / environment.frontLineDailyLossExp),
+  );
+  public frontLineWins: Signal<number> = computed(() =>
+    Math.ceil(this.xpNeeded() / environment.frontLineWinExp),
+  );
+  public frontLineLosses2: Signal<number> = computed(() =>
+    Math.ceil(this.xpNeeded() / environment.frontLineLoss2Exp),
+  );
+  public frontLineLosses: Signal<number> = computed(() =>
+    Math.ceil(this.xpNeeded() / environment.frontLineLossExp),
+  );
+  public crystallineWins: Signal<number> = computed(() =>
+    Math.ceil(this.xpNeeded() / environment.crystallineWinExp),
+  );
+  public crystallineLosses: Signal<number> = computed(() =>
+    Math.ceil(this.xpNeeded() / environment.crystallineLossExp),
+  );
+  public rivalWingsWins: Signal<number> = computed(() =>
+    Math.ceil(this.xpNeeded() / environment.rivalWingsWinExp),
+  );
+  public rivalWingsLosses: Signal<number> = computed(() =>
+    Math.ceil(this.xpNeeded() / environment.rivalWingsLossExp),
+  );
   public now: WritableSignal<Date> = signal(new Date());
-  public daysRemaining: Signal<number|null> = computed(() => {
+  public daysRemaining: Signal<number | null> = computed(() => {
     const currentDate = this.currentDate();
-    if (currentDate == null || currentDate === "") { return null; }
+    if (currentDate == null || currentDate === '') {
+      return null;
+    }
     const currentDateDate = this.dateFromStringAdjustedForReset(currentDate);
-    const res = Math.ceil((currentDateDate.valueOf() - this.now().valueOf())/86400000);
+    const res = Math.ceil(
+      (currentDateDate.valueOf() - this.now().valueOf()) / 86400000,
+    );
     return res > 0 ? res : null;
   });
   public frontLineDailyWinsClass: Signal<string> = computed(() => {
     const daysRemaining = this.daysRemaining();
-    if (daysRemaining == null) { return ""; }
-    if (daysRemaining >= this.frontLineDailyLosses()) { return "daily-success"; }
-    if (daysRemaining >= this.frontLineDailyWins()) { return "daily-warning"; }
-    return "daily-fail";
+    if (daysRemaining == null) {
+      return '';
+    }
+    if (daysRemaining >= this.frontLineDailyLosses()) {
+      return 'daily-success';
+    }
+    if (daysRemaining >= this.frontLineDailyWins()) {
+      return 'daily-warning';
+    }
+    return 'daily-fail';
   });
   public frontLineDailyLosses2Class: Signal<string> = computed(() => {
     const daysRemaining = this.daysRemaining();
-    if (daysRemaining == null) { return ""; }
-    if (daysRemaining >= this.frontLineDailyLosses()) { return "daily-success"; }
-    if (daysRemaining >= this.frontLineDailyLosses2()) { return "daily-warning"; }
-    return "daily-fail";
+    if (daysRemaining == null) {
+      return '';
+    }
+    if (daysRemaining >= this.frontLineDailyLosses()) {
+      return 'daily-success';
+    }
+    if (daysRemaining >= this.frontLineDailyLosses2()) {
+      return 'daily-warning';
+    }
+    return 'daily-fail';
   });
   public frontLineDailyLossesClass: Signal<string> = computed(() => {
     const daysRemaining = this.daysRemaining();
-    if (daysRemaining == null) { return ""; }
-    if (daysRemaining >= this.frontLineDailyLosses()) { return "daily-success"; }
-    return "daily-fail";
+    if (daysRemaining == null) {
+      return '';
+    }
+    if (daysRemaining >= this.frontLineDailyLosses()) {
+      return 'daily-success';
+    }
+    return 'daily-fail';
   });
 
   constructor() {
@@ -74,7 +128,11 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // If the inputted date is in the past, clear it, and save it.
     const currentDate = this.currentDate();
-    if (currentDate != null && this.dateFromStringAdjustedForReset(currentDate).valueOf() < this.now().valueOf()) {
+    if (
+      currentDate != null &&
+      this.dateFromStringAdjustedForReset(currentDate).valueOf() <
+        this.now().valueOf()
+    ) {
       this.currentDate.set(null);
       this.characterStateService.saveData();
     }
@@ -96,10 +154,15 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
     this.characterStateService.saveData();
     this.recalculate();
   }
-  
+
   recalculate(): void {
-    const needed = environment.levelThresholds[this.currentCharacter().goalLevel] - environment.levelThresholds[this.currentCharacter().currentLevel] - this.currentCharacter().currentProgress;
-    const level = environment.levelThresholds[this.currentCharacter().currentLevel + 1] - environment.levelThresholds[this.currentCharacter().currentLevel];
+    const needed =
+      environment.levelThresholds[this.currentCharacter().goalLevel] -
+      environment.levelThresholds[this.currentCharacter().currentLevel] -
+      this.currentCharacter().currentProgress;
+    const level =
+      environment.levelThresholds[this.currentCharacter().currentLevel + 1] -
+      environment.levelThresholds[this.currentCharacter().currentLevel];
     this.valid = !isNaN(needed) && !isNaN(level);
 
     if (this.valid) {
@@ -137,7 +200,10 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
     } else {
       this.currentCharacter().currentProgress = Math.floor(progress);
     }
-    while (this.currentCharacter().currentProgress >= this.xpLevel() && this.valid) {
+    while (
+      this.currentCharacter().currentProgress >= this.xpLevel() &&
+      this.valid
+    ) {
       this.currentCharacter().currentLevel++;
       this.currentCharacter().currentProgress -= this.xpLevel();
       this.recalculate();
@@ -150,7 +216,8 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
     if (goal < this.currentCharacter().currentLevel) {
       this.currentCharacter().goalLevel = this.currentCharacter().currentLevel;
     } else if (goal >= environment.levelThresholds.length) {
-      this.currentCharacter().goalLevel = environment.levelThresholds.length - 1;
+      this.currentCharacter().goalLevel =
+        environment.levelThresholds.length - 1;
     } else {
       this.currentCharacter().goalLevel = Math.floor(goal);
     }
@@ -163,7 +230,10 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
   }
 
   removeCurrentCharacter(): void {
-    const charName = this.currentCharacter().name !== "" ? this.currentCharacter().name : "the Current Character";
+    const charName =
+      this.currentCharacter().name !== ''
+        ? this.currentCharacter().name
+        : 'the Current Character';
     if (confirm(`Are you sure you want to remove ${charName}?`)) {
       this.characterStateService.removeCurrentCharacter();
     }

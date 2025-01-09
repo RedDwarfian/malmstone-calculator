@@ -7,7 +7,7 @@ import { CharacterTabsComponent } from './component/character-tabs/character-tab
   selector: 'app-root',
   imports: [CharacterCalculatorComponent, CharacterTabsComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   private characterStateService = inject(CharacterXpStateService);

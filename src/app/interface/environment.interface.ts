@@ -1,9 +1,9 @@
-import { CharacterXp } from "./character-xp.interface";
+import { CharacterXp } from './character-xp.interface';
 
 export interface environmentInterface {
-  localStorageKey: string,
-  localStorageDateKey: string,
-  estimatedPatchCadence: number
+  localStorageKey: string;
+  localStorageDateKey: string;
+  estimatedPatchCadence: number;
   levelThresholds: number[];
   frontLineWinExp: number;
   frontLineLoss2Exp: number;

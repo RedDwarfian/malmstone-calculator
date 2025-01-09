@@ -2,14 +2,15 @@ import { Component, WritableSignal, inject } from '@angular/core';
 import { CharacterXpStateService } from '../../service/character-xp-state.service';
 
 @Component({
-    selector: 'app-character-tabs',
-    templateUrl: './character-tabs.component.html',
-    styleUrl: './character-tabs.component.scss'
+  selector: 'app-character-tabs',
+  templateUrl: './character-tabs.component.html',
+  styleUrl: './character-tabs.component.scss',
 })
 export class CharacterTabsComponent {
   private characterStateService = inject(CharacterXpStateService);
   public characterList = this.characterStateService.characterArray;
-  public currentIndex: WritableSignal<number> = this.characterStateService.currentIndex;
+  public currentIndex: WritableSignal<number> =
+    this.characterStateService.currentIndex;
 
   newCharacter(): void {
     this.characterStateService.addCharacter();
