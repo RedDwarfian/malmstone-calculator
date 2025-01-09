@@ -6,11 +6,10 @@ import { environment } from '../../../environments/environment';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-character-calculator',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
-  templateUrl: './character-calculator.component.html',
-  styleUrl: './character-calculator.component.scss'
+    selector: 'app-character-calculator',
+    imports: [FormsModule, ReactiveFormsModule],
+    templateUrl: './character-calculator.component.html',
+    styleUrl: './character-calculator.component.scss'
 })
 export class CharacterCalculatorComponent implements OnInit, OnDestroy {
   private characterStateService = inject(CharacterXpStateService);

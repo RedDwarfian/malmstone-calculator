@@ -2,11 +2,9 @@ import { Component, WritableSignal, inject } from '@angular/core';
 import { CharacterXpStateService } from '../../service/character-xp-state.service';
 
 @Component({
-  selector: 'app-character-tabs',
-  standalone: true,
-  imports: [],
-  templateUrl: './character-tabs.component.html',
-  styleUrl: './character-tabs.component.scss'
+    selector: 'app-character-tabs',
+    templateUrl: './character-tabs.component.html',
+    styleUrl: './character-tabs.component.scss'
 })
 export class CharacterTabsComponent {
   private characterStateService = inject(CharacterXpStateService);
