@@ -38,34 +38,34 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
   public xpNeeded: WritableSignal<number> = signal(0);
   public xpLevel: WritableSignal<number> = signal(0);
   public frontLineDailyWins: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.frontLineDailyWinExp),
+    Math.ceil(this.xpNeeded() / environment.frontLineDailyWinExp)
   );
   public frontLineDailyLosses2: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.frontLineDailyLoss2Exp),
+    Math.ceil(this.xpNeeded() / environment.frontLineDailyLoss2Exp)
   );
   public frontLineDailyLosses: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.frontLineDailyLossExp),
+    Math.ceil(this.xpNeeded() / environment.frontLineDailyLossExp)
   );
   public frontLineWins: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.frontLineWinExp),
+    Math.ceil(this.xpNeeded() / environment.frontLineWinExp)
   );
   public frontLineLosses2: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.frontLineLoss2Exp),
+    Math.ceil(this.xpNeeded() / environment.frontLineLoss2Exp)
   );
   public frontLineLosses: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.frontLineLossExp),
+    Math.ceil(this.xpNeeded() / environment.frontLineLossExp)
   );
   public crystallineWins: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.crystallineWinExp),
+    Math.ceil(this.xpNeeded() / environment.crystallineWinExp)
   );
   public crystallineLosses: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.crystallineLossExp),
+    Math.ceil(this.xpNeeded() / environment.crystallineLossExp)
   );
   public rivalWingsWins: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.rivalWingsWinExp),
+    Math.ceil(this.xpNeeded() / environment.rivalWingsWinExp)
   );
   public rivalWingsLosses: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.rivalWingsLossExp),
+    Math.ceil(this.xpNeeded() / environment.rivalWingsLossExp)
   );
   public now: WritableSignal<Date> = signal(new Date());
   public daysRemaining: Signal<number | null> = computed(() => {
