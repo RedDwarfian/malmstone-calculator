@@ -19,7 +19,7 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
   
   public environment = environment;
   private valid = true;
-  private intervalRef: any;
+  private intervalRef: NodeJS.Timeout;
 
   public xpNeeded: WritableSignal<number> = signal(0);
   public xpLevel: WritableSignal<number> = signal(0);
@@ -68,6 +68,7 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.recalculate();
       });
+    this.intervalRef = setInterval(this.interval, 3600000);
   }
 
   ngOnInit(): void {
@@ -81,7 +82,6 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
     this.recalculate();
     // Every hour, update "now"
     this.interval();
-    this.intervalRef = setInterval(this.interval, 3600000);
   }
 
   ngOnDestroy(): void {

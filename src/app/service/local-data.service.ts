@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LocalDataService {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public saveData(key: string, value: any): void {
     localStorage.setItem(key, JSON.stringify(value));
   }
@@ -12,7 +13,7 @@ export class LocalDataService {
     const item = localStorage.getItem(key);
     try {
       return item == null || item === '' ? null : JSON.parse(item) as T;
-    } catch(ex) {
+    } catch {
       console.error(`Data not valid at key ${key}`, item);
       return null;
     }
