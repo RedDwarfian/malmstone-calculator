@@ -1,4 +1,4 @@
-import { Component, WritableSignal, Signal, computed, inject, signal } from '@angular/core';
+import { Component, WritableSignal, Signal, computed, inject, signal, OnInit, OnDestroy } from '@angular/core';
 import { CharacterXp } from '../../interface/character-xp.interface';
 import { CharacterXpStateService } from '../../service/character-xp-state.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,13 +12,15 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
   templateUrl: './character-calculator.component.html',
   styleUrl: './character-calculator.component.scss'
 })
-export class CharacterCalculatorComponent {
+export class CharacterCalculatorComponent implements OnInit, OnDestroy {
   private characterStateService = inject(CharacterXpStateService);
   public currentCharacter: Signal<CharacterXp> = computed(() =>
     this.characterStateService.characterArray()[this.characterStateService.currentIndex()]);
+  public currentDate: WritableSignal<string|null> = this.characterStateService.deadlineDate;
   
   public environment = environment;
   private valid = true;
+  private intervalRef: any;
 
   public xpNeeded: WritableSignal<number> = signal(0);
   public xpLevel: WritableSignal<number> = signal(0);
@@ -32,6 +34,34 @@ export class CharacterCalculatorComponent {
   public crystallineLosses: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.crystallineLossExp));
   public rivalWingsWins: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.rivalWingsWinExp));
   public rivalWingsLosses: Signal<number> = computed(() => Math.ceil(this.xpNeeded() / environment.rivalWingsLossExp));
+  public now: WritableSignal<Date> = signal(new Date());
+  public daysRemaining: Signal<number|null> = computed(() => {
+    const currentDate = this.currentDate();
+    if (currentDate == null || currentDate === "") { return null; }
+    const currentDateDate = this.dateFromStringAdjustedForReset(currentDate);
+    const res = Math.ceil((currentDateDate.valueOf() - this.now().valueOf())/86400000);
+    return res > 0 ? res : null;
+  });
+  public frontLineDailyWinsClass: Signal<string> = computed(() => {
+    const daysRemaining = this.daysRemaining();
+    if (daysRemaining == null) { return ""; }
+    if (daysRemaining >= this.frontLineDailyLosses()) { return "daily-success"; }
+    if (daysRemaining >= this.frontLineDailyWins()) { return "daily-warning"; }
+    return "daily-fail";
+  });
+  public frontLineDailyLosses2Class: Signal<string> = computed(() => {
+    const daysRemaining = this.daysRemaining();
+    if (daysRemaining == null) { return ""; }
+    if (daysRemaining >= this.frontLineDailyLosses()) { return "daily-success"; }
+    if (daysRemaining >= this.frontLineDailyLosses2()) { return "daily-warning"; }
+    return "daily-fail";
+  });
+  public frontLineDailyLossesClass: Signal<string> = computed(() => {
+    const daysRemaining = this.daysRemaining();
+    if (daysRemaining == null) { return ""; }
+    if (daysRemaining >= this.frontLineDailyLosses()) { return "daily-success"; }
+    return "daily-fail";
+  });
 
   constructor() {
     toObservable(this.currentCharacter)
@@ -42,9 +72,25 @@ export class CharacterCalculatorComponent {
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    // If the inputted date is in the past, clear it, and save it.
+    const currentDate = this.currentDate();
+    if (currentDate != null && this.dateFromStringAdjustedForReset(currentDate).valueOf() < this.now().valueOf()) {
+      this.currentDate.set(null);
+      this.characterStateService.saveData();
+    }
+    // Initial Calculation
     this.recalculate();
+    // Every hour, update "now"
+    this.interval();
+    this.intervalRef = setInterval(this.interval, 3600000);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalRef);
+  }
+
+  interval(): void {
+    this.now.set(new Date());
   }
 
   updateCharacter(): void {
@@ -61,6 +107,16 @@ export class CharacterCalculatorComponent {
       this.xpNeeded.set(Math.max(needed, 0));
       this.xpLevel.set(Math.max(level, 0));
     }
+  }
+
+  // Takes an input string, assumed to be a string in yyyy-MM-dd format,
+  // turns it into a date (assumed to be UTC), then it to coincide with
+  // that date's FFXIV reset time.
+  // Reset occurs at 15:00 UTC.
+  dateFromStringAdjustedForReset(currentDate: string): Date {
+    const resultDate = new Date(currentDate);
+    resultDate.setHours(resultDate.getHours() + 15);
+    return resultDate;
   }
 
   correctCurrentLevel(): void {

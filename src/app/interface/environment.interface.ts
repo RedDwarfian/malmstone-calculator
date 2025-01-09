@@ -1,7 +1,9 @@
 import { CharacterXp } from "./character-xp.interface";
 
 export interface environmentInterface {
-  localStorageKey: "FFXIV_PvP_Character_Data",
+  localStorageKey: string,
+  localStorageDateKey: string,
+  estimatedPatchCadence: number
   levelThresholds: number[];
   frontLineWinExp: number;
   frontLineLoss2Exp: number;

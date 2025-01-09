@@ -8,16 +8,19 @@ import { environment } from '../../environments/environment';
 })
 export class CharacterXpStateService {
   public characterArray: WritableSignal<CharacterXp[]> = signal([] as CharacterXp[]);
+  public deadlineDate: WritableSignal<string|null> = signal(null);
   public loaded: WritableSignal<boolean> = signal(false);
   public currentIndex: WritableSignal<number> = signal(0);
   private localDataService = inject(LocalDataService);
   private localDataKey = environment.localStorageKey;
+  private localDataDateKey = environment.localStorageDateKey;
 
   constructor() {
     // TODO: Load from localDataService
     // This is default if there is no entry in the localDataService.
     this.characterArray.set(this.localDataService.getData(this.localDataKey) ??
       [structuredClone(environment.newCharacterDefaults)]);
+    this.deadlineDate.set(this.localDataService.getData(this.localDataDateKey) ?? null);
     this.loaded.set(true);
   }
 
@@ -28,6 +31,7 @@ export class CharacterXpStateService {
 
   saveData(): void {
     this.localDataService.saveData(this.localDataKey, this.characterArray());
+    this.localDataService.saveData(this.localDataDateKey, this.deadlineDate());
   }
 
   removeCurrentCharacter() {

@@ -1,7 +1,9 @@
 import { environmentInterface } from "../app/interface/environment.interface";
 
 export const environment: environmentInterface = {
-    localStorageKey: "FFXIV_PvP_Character_Data",
+    localStorageKey: 'FFXIV_PvP_Character_Data',
+    localStorageDateKey: 'FFXIV_PvP_Character_Date',
+    estimatedPatchCadence: 11491200000, // 19 weeks in seconds
     levelThresholds: [ 0, 0, 2000, 4000, 6000, 8000, 11000, 14000, 17000, 20000, 23000, 27000, 31000, 35000, 39000, 43000, 48500, 54000, 59500, 65000, 70500, 78000, 85500, 93000, 100500, 108000, 118000, 128000, 138000, 148000,158000,178000,198000,218000,238000,258000,278000,298000,318000,338000,358000],
     frontLineWinExp: 1500,
     frontLineLoss2Exp: 1250,

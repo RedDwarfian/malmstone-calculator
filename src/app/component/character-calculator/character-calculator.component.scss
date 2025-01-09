@@ -39,6 +39,7 @@ input, select {
     border-radius: var(--border-radius);
     padding-left: .25rem;
     padding-right: .25rem;
+    color-scheme: dark;
 }
 
 .remove_button {
@@ -118,5 +119,14 @@ input, select {
             grid-column: 1 / 4;
         }
     }
+}
 
+.daily-success {
+    color: #7f7;
+}
+.daily-warning {
+    color: #ff7;
+}
+.daily-fail {
+    color: #f77;
 }
