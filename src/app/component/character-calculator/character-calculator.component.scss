@@ -78,6 +78,16 @@ select {
   }
 }
 
+.daily-success {
+  color: #7f7;
+}
+.daily-warning {
+  color: #ff7;
+}
+.daily-fail {
+  color: #f77;
+}
+
 .win_section {
   margin-top: 1rem;
   border-top: 1px solid var(--border-color);
@@ -131,14 +141,4 @@ select {
       grid-column: 1 / 4;
     }
   }
-}
-
-.daily-success {
-  color: #7f7;
-}
-.daily-warning {
-  color: #ff7;
-}
-.daily-fail {
-  color: #f77;
 }
