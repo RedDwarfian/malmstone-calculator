@@ -12,4 +12,5 @@ import { CharacterTabsComponent } from './component/character-tabs/character-tab
 export class AppComponent {
   private characterStateService = inject(CharacterXpStateService);
   public loaded = this.characterStateService.loaded;
+  public currentYear = new Date().getFullYear();
 }

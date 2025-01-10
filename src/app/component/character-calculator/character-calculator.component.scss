@@ -38,8 +38,7 @@ select {
   background-color: var(--bg-color);
   color: var(--text-color);
   border-radius: var(--border-radius);
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
+  padding: var(--interactive-padding);
   color-scheme: dark;
 }
 

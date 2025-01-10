@@ -10,6 +10,7 @@
   --window-bg-color: #111;
   --button-bg-color-hover: #224;
   --button-bg-color-active: #227;
+  --interactive-padding: 0.25rem 0.5rem;
 }
 
 html {
@@ -38,4 +39,12 @@ a {
     color: var(--link-text-color-hover);
     text-decoration: underline;
   }
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  line-height: 1.125;
 }
