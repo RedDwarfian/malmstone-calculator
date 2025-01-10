@@ -65,10 +65,25 @@ jobs:
       - name: Build with Angular
         run: ${{ steps.detect-package-manager.outputs.runner }} ng build --base-href ${{ steps.pages.outputs.base_path }}/
         working-directory: ${{ env.BUILD_PATH }}
-      - name: Deploy
+      - name: Archive gh-pages Branch
         if: success()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ${{ env.BUILD_PATH }}/dist/malmstone-calculator
-          enable_jekyll: true
+          publish_dir: ${{ env.BUILD_PATH }}/dist/malmstone-calculator/browser
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.BUILD_PATH }}/dist/malmstone-calculator/browser
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
