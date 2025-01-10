@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class CharacterXpStateService {
   public characterArray: WritableSignal<CharacterXp[]> = signal(
-    [] as CharacterXp[],
+    [] as CharacterXp[]
   );
   public deadlineDate: WritableSignal<string | null> = signal(null);
   public loaded: WritableSignal<boolean> = signal(false);
@@ -23,17 +23,17 @@ export class CharacterXpStateService {
     this.characterArray.set(
       this.localDataService.getData(this.localDataKey) ?? [
         structuredClone(environment.newCharacterDefaults),
-      ],
+      ]
     );
     this.deadlineDate.set(
-      this.localDataService.getData(this.localDataDateKey) ?? null,
+      this.localDataService.getData(this.localDataDateKey) ?? null
     );
     this.loaded.set(true);
   }
 
   addCharacter(): void {
     this.characterArray().push(
-      structuredClone(environment.newCharacterDefaults),
+      structuredClone(environment.newCharacterDefaults)
     );
     this.saveData();
   }

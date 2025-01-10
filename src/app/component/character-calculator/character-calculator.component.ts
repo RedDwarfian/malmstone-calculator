@@ -26,7 +26,7 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
     () =>
       this.characterStateService.characterArray()[
         this.characterStateService.currentIndex()
-      ],
+      ]
   );
   public currentDate: WritableSignal<string | null> =
     this.characterStateService.deadlineDate;
@@ -75,7 +75,7 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
     }
     const currentDateDate = this.dateFromStringAdjustedForReset(currentDate);
     const res = Math.ceil(
-      (currentDateDate.valueOf() - this.now().valueOf()) / 86400000,
+      (currentDateDate.valueOf() - this.now().valueOf()) / 86400000
     );
     return res > 0 ? res : null;
   });
