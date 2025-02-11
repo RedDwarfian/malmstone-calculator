@@ -122,7 +122,9 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.recalculate();
       });
-    this.intervalRef = setInterval(this.interval, 3600000);
+    // Every hour, update "now"
+    // Need to pass in this.now as a parameter because in an Interval, "this" is the window.
+    this.intervalRef = setInterval(this.interval, 3600000, this.now);
   }
 
   ngOnInit(): void {
@@ -139,15 +141,16 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
     // Initial Calculation
     this.recalculate();
     // Every hour, update "now"
-    this.interval();
+    this.interval(this.now);
   }
 
   ngOnDestroy(): void {
     clearInterval(this.intervalRef);
   }
 
-  interval(): void {
-    this.now.set(new Date());
+  // Need to pass in now as a parameter because in an Interval, "this" is the window.
+  interval(now: WritableSignal<Date>): void {
+    now.set(new Date());
   }
 
   updateCharacter(): void {
