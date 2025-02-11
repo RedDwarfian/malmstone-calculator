@@ -18,8 +18,6 @@ export class CharacterXpStateService {
   private localDataDateKey = environment.localStorageDateKey;
 
   constructor() {
-    // TODO: Load from localDataService
-    // This is default if there is no entry in the localDataService.
     this.characterArray.set(
       this.localDataService.getData(this.localDataKey) ?? [
         structuredClone(environment.newCharacterDefaults),
