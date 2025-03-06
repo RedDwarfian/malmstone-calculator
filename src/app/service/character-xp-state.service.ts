@@ -18,13 +18,18 @@ export class CharacterXpStateService {
   private localDataDateKey = environment.localStorageDateKey;
 
   constructor() {
-    // TODO: Load from localDataService
     // This is default if there is no entry in the localDataService.
     this.characterArray.set(
       this.localDataService.getData(this.localDataKey) ?? [
         structuredClone(environment.newCharacterDefaults),
       ]
     );
+    // Take care of added fields.
+    this.characterArray().forEach((character) => {
+      if (character.cumulativeThirds === undefined) {
+        character.cumulativeThirds = 0;
+      }
+    });
     this.deadlineDate.set(
       this.localDataService.getData(this.localDataDateKey) ?? null
     );

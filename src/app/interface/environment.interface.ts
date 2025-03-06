@@ -8,9 +8,7 @@ export interface environmentInterface {
   frontLineWinExp: number;
   frontLineLoss2Exp: number;
   frontLineLossExp: number;
-  frontLineDailyWinExp: number;
-  frontLineDailyLoss2Exp: number;
-  frontLineDailyLossExp: number;
+  frontLineDailyExp: number;
   crystallineWinExp: number;
   crystallineLossExp: number;
   rivalWingsWinExp: number;
