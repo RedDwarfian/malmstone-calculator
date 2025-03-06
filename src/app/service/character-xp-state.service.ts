@@ -26,8 +26,8 @@ export class CharacterXpStateService {
     );
     // Take care of added fields.
     this.characterArray().forEach((character) => {
-      if (character.consecutiveThirds === undefined) {
-        character.consecutiveThirds = 0;
+      if (character.cumulativeThirds === undefined) {
+        character.cumulativeThirds = 0;
       }
     });
     this.deadlineDate.set(

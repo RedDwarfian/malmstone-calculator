@@ -13,9 +13,7 @@ export const environment: environmentInterface = {
   frontLineWinExp: 1500,
   frontLineLoss2Exp: 1250,
   frontLineLossExp: 1000,
-  frontLineDailyWinExp: 3000,
-  frontLineDailyLoss2Exp: 2750,
-  frontLineDailyLossExp: 2500,
+  frontLineDailyExp: 1500,
   crystallineWinExp: 900,
   crystallineLossExp: 700,
   rivalWingsWinExp: 1250,
@@ -26,7 +24,7 @@ export const environment: environmentInterface = {
     currentLevel: 1,
     currentProgress: 0,
     goalLevel: 25,
-    consecutiveThirds: 0,
+    cumulativeThirds: 0,
   },
   regions: [
     {

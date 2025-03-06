@@ -38,13 +38,22 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
   public xpNeeded: WritableSignal<number> = signal(0);
   public xpLevel: WritableSignal<number> = signal(0);
   public frontLineDailyWins: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.frontLineDailyWinExp)
+    Math.ceil(
+      this.xpNeeded() /
+        (environment.frontLineWinExp + environment.frontLineDailyExp)
+    )
   );
   public frontLineDailyLosses2: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.frontLineDailyLoss2Exp)
+    Math.ceil(
+      this.xpNeeded() /
+        (environment.frontLineLoss2Exp + environment.frontLineDailyExp)
+    )
   );
   public frontLineDailyLosses: Signal<number> = computed(() =>
-    Math.ceil(this.xpNeeded() / environment.frontLineDailyLossExp)
+    Math.ceil(
+      this.xpNeeded() /
+        (environment.frontLineLossExp + environment.frontLineDailyExp)
+    )
   );
   public frontLineWins: Signal<number> = computed(() =>
     Math.ceil(this.xpNeeded() / environment.frontLineWinExp)
@@ -230,6 +239,51 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
       this.currentCharacter().goalLevel = Math.floor(goal);
     }
     this.updateCharacter();
+  }
+
+  private expValuesForPlace: number[] = [
+    0, // 0th place(holder)
+    environment.frontLineWinExp, // 1st place
+    environment.frontLineLoss2Exp, // 2nd place
+    environment.frontLineLossExp, // 3rd place
+  ];
+  addFrontlineProgress(place: number, daily: boolean): void {
+    // Don't do anything if it's an invalid place.
+    if (this.expValuesForPlace[place] === undefined) {
+      console.error('Invalid place: ' + place);
+      return;
+    }
+
+    // Calculate the loss bonus factor.
+    // The first 3rd place loss will have a factor of 1.0.
+    // It will kick in at the second 3rd Place loss, and increase up to the maximum 1.5 at 6 losses.
+    const lossBonusFactor: number =
+      Math.min(
+        5, // Maximum of 5
+        Math.max(
+          0, // Minimum of 0
+          this.currentCharacter().cumulativeThirds
+        )
+      ) /
+        10 +
+      1;
+
+    // Multiply the base experience by the loss bonus factor. (Round to prevent floating point errors)
+    const expToAdd: number =
+      Math.round(this.expValuesForPlace[place] * lossBonusFactor) +
+      (daily ? environment.frontLineDailyExp : 0); // Add the daily bonus if it's daily roulette
+
+    // If you won, reset the cumulativeThirds.
+    // If you came in second, do nothing.
+    // If you came in third, increment the cumulativeThirds.
+    if (place === 1) {
+      this.currentCharacter().cumulativeThirds = 0;
+    } else if (place === 3) {
+      this.currentCharacter().cumulativeThirds++;
+    }
+
+    // Add the experience as normal.
+    this.addProgress(expToAdd);
   }
 
   addProgress(xpBoost: number): void {

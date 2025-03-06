@@ -120,7 +120,7 @@
   }
 </div>
 <div class="win_section">
-  <div class="win_title_section">
+  <hgroup class="win_title win_title_section">
     <h2>
       Frontline
       <span
@@ -138,19 +138,19 @@
       >
       <input
         type="number"
-        name="consecutiveThirds"
+        name="cumulativeThirds"
         [min]="0"
         [max]="99"
-        [(ngModel)]="currentCharacter().consecutiveThirds"
+        [(ngModel)]="currentCharacter().cumulativeThirds"
         (ngModelChange)="updateCharacter()"
       />
     </label>
-  </div>
+  </hgroup>
   <div class="win_readout_section">
     <button
       class="add_win_button"
       title="Add Frontline Daily 1st Place"
-      (click)="addProgress(environment.frontLineDailyWinExp)"
+      (click)="addFrontlineProgress(1, true)"
     >
       +
     </button>
@@ -161,7 +161,7 @@
     <button
       class="add_win_button"
       title="Add Frontline Daily 2nd Place"
-      (click)="addProgress(environment.frontLineDailyLoss2Exp)"
+      (click)="addFrontlineProgress(2, true)"
     >
       +
     </button>
@@ -172,12 +172,12 @@
     <button
       class="add_win_button"
       title="Add Frontline Daily 3rd Place"
-      (click)="addProgress(environment.frontLineDailyLossExp)"
+      (click)="addFrontlineProgress(3, true)"
     >
       +
     </button>
     {{ frontLineDailyLosses() }} 3rd Place Losses in
-    <span [class]="frontLineDailyLossesClass()">Daily Frontline</span>
+    <span [class]="frontLineDailyLossesClass()">Daily Frontline </span>
     <span
       class="circle"
       title="Note: Does not account for the bonus XP from a loss streak"
@@ -188,7 +188,7 @@
     <button
       class="add_win_button"
       title="Add Frontline 1st Place"
-      (click)="addProgress(environment.frontLineWinExp)"
+      (click)="addFrontlineProgress(1, false)"
     >
       +
     </button>
@@ -198,7 +198,7 @@
     <button
       class="add_win_button"
       title="Add Frontline 2nd Place"
-      (click)="addProgress(environment.frontLineLoss2Exp)"
+      (click)="addFrontlineProgress(2, false)"
     >
       +
     </button>
@@ -208,7 +208,7 @@
     <button
       class="add_win_button"
       title="Add Frontline 3rd Place"
-      (click)="addProgress(environment.frontLineLossExp)"
+      (click)="addFrontlineProgress(3, false)"
     >
       +
     </button>
@@ -219,7 +219,7 @@
       >!</span
     >
   </div>
-  <h2>Crystalline Conflict</h2>
+  <h2 class="win_title">Crystalline Conflict</h2>
   <div class="win_readout_section">
     <button
       class="add_win_button"
@@ -240,7 +240,7 @@
     </button>
     {{ crystallineLosses() }} Losses in Crystalline Conflict
   </div>
-  <h2>Rival Wings</h2>
+  <h2 class="win_title">Rival Wings</h2>
   <div class="win_readout_section">
     <button
       class="add_win_button"

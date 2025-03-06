@@ -4,5 +4,5 @@ export interface CharacterXp {
   currentLevel: number;
   currentProgress: number;
   goalLevel: number;
-  consecutiveThirds: number; // Consecutive Third-Place Losses in Frontline
+  cumulativeThirds: number; // Cumulative Third-Place Losses since last win in Frontline
 }
