@@ -67,6 +67,8 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
   public rivalWingsLosses: Signal<number> = computed(() =>
     Math.ceil(this.xpNeeded() / environment.rivalWingsLossExp)
   );
+
+  // Date Signal that is updated every hour. Used to calculate days remaining.
   public now: WritableSignal<Date> = signal(new Date());
   public daysRemaining: Signal<number | null> = computed(() => {
     const currentDate = this.currentDate();
@@ -79,6 +81,9 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
     );
     return res > 0 ? res : null;
   });
+
+  // These Signals are used to color the text of the Daily Frontline wins/losses based on if
+  // you can make your goal level based on the date, using solely Daily Frontline Roulettes.
   public frontLineDailyWinsClass: Signal<string> = computed(() => {
     const daysRemaining = this.daysRemaining();
     if (daysRemaining == null) {

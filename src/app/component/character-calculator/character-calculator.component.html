@@ -92,7 +92,7 @@
     Goal Deadline
     <span
       class="circle"
-      title="Determines if you can reach goal only using Daily Frontline. Green means it's possible. Yellow means too many losses will fail. Red means you cannot."
+      title="Determines if you can reach goal only using Daily Frontline. Green means it's possible. Yellow means too many losses will fail. Red means you cannot. Does not account for Loss Streak bonus."
       >?</span
     >
     <input
@@ -120,14 +120,32 @@
   }
 </div>
 <div class="win_section">
-  <h2>
-    Frontline
-    <span
-      class="circle"
-      title="How many wins of each type required to get to the goal level. Click the + to add XP for the specified match"
-      >?</span
-    >
-  </h2>
+  <div class="win_title_section">
+    <h2>
+      Frontline
+      <span
+        class="circle"
+        title="How many wins of each type required to get to the goal level. Click the + to add XP for the specified match"
+        >?</span
+      >
+    </h2>
+    <label>
+      Frontline Loss Streak
+      <span
+        class="circle"
+        title="How many third-place losses in a row you've had in Frontline. This will give you a bonus to XP. Increments on a third-place loss. Not affected on a second-place loss. Resets on a win."
+        >?</span
+      >
+      <input
+        type="number"
+        name="consecutiveThirds"
+        [min]="0"
+        [max]="99"
+        [(ngModel)]="currentCharacter().consecutiveThirds"
+        (ngModelChange)="updateCharacter()"
+      />
+    </label>
+  </div>
   <div class="win_readout_section">
     <button
       class="add_win_button"
@@ -160,6 +178,11 @@
     </button>
     {{ frontLineDailyLosses() }} 3rd Place Losses in
     <span [class]="frontLineDailyLossesClass()">Daily Frontline</span>
+    <span
+      class="circle"
+      title="Note: Does not account for the bonus XP from a loss streak"
+      >!</span
+    >
   </div>
   <div class="win_readout_section">
     <button
@@ -190,6 +213,11 @@
       +
     </button>
     {{ frontLineLosses() }} 3rd Place Losses in Frontline
+    <span
+      class="circle"
+      title="Note: Does not account for the bonus XP from a loss streak"
+      >!</span
+    >
   </div>
   <h2>Crystalline Conflict</h2>
   <div class="win_readout_section">
