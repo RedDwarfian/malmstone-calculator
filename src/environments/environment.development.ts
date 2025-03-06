@@ -26,6 +26,7 @@ export const environment: environmentInterface = {
     currentLevel: 1,
     currentProgress: 0,
     goalLevel: 25,
+    consecutiveThirds: 0,
   },
   regions: [
     {
