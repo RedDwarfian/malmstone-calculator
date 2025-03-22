@@ -254,6 +254,11 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // If you came in third, increment the cumulativeThirds.
+    if (place === 3) {
+      this.currentCharacter().cumulativeThirds++;
+    }
+
     // Calculate the loss bonus factor.
     // The first 3rd place loss will have a factor of 1.0.
     // It will kick in at the second 3rd Place loss, and increase up to the maximum 1.5 at 6 losses.
@@ -262,7 +267,7 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
         5, // Maximum of 5
         Math.max(
           0, // Minimum of 0
-          this.currentCharacter().cumulativeThirds
+          this.currentCharacter().cumulativeThirds - 1
         )
       ) /
         10 +
@@ -275,11 +280,8 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
 
     // If you won, reset the cumulativeThirds.
     // If you came in second, do nothing.
-    // If you came in third, increment the cumulativeThirds.
     if (place === 1) {
       this.currentCharacter().cumulativeThirds = 0;
-    } else if (place === 3) {
-      this.currentCharacter().cumulativeThirds++;
     }
 
     // Add the experience as normal.
