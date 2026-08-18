@@ -1,9 +1,15 @@
-import { Component, WritableSignal, inject } from '@angular/core';
+import {
+  Component,
+  WritableSignal,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CharacterXpStateService } from '../../service/character-xp-state.service';
 
 @Component({
   selector: 'app-character-tabs',
   templateUrl: './character-tabs.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './character-tabs.component.scss',
 })
 export class CharacterTabsComponent {

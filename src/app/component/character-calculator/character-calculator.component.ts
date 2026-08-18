@@ -7,6 +7,7 @@ import {
   signal,
   OnInit,
   OnDestroy,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CharacterXp } from '../../interface/character-xp.interface';
 import { CharacterXpStateService } from '../../service/character-xp-state.service';
@@ -18,6 +19,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
   selector: 'app-character-calculator',
   imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './character-calculator.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './character-calculator.component.scss',
 })
 export class CharacterCalculatorComponent implements OnInit, OnDestroy {
