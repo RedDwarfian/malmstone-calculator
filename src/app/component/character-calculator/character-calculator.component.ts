@@ -14,10 +14,11 @@ import { CharacterXpStateService } from '../../service/character-xp-state.servic
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { TooltipDirective } from 'ngx-smart-tooltip';
 
 @Component({
   selector: 'app-character-calculator',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, TooltipDirective],
   templateUrl: './character-calculator.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './character-calculator.component.scss',

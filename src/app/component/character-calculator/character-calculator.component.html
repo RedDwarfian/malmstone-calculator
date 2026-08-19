@@ -1,7 +1,7 @@
 <button
   class="remove_button"
   (click)="removeCurrentCharacter()"
-  title="Delete this character"
+  [ngxTooltip]="'Delete this character'"
 >
   &times;
 </button>
@@ -19,7 +19,7 @@
     Server
     <span
       class="circle"
-      title="This data is only saved in your browser's Local Storage."
+      [ngxTooltip]="'This data is only saved in your browser\'s Local Storage.'"
       >?</span
     >
     <select
@@ -90,11 +90,7 @@
   <div>XP NEEDED: {{ xpNeeded() }}</div>
   <label>
     Goal Deadline
-    <span
-      class="circle"
-      title="Determines if you can reach goal only using Daily Frontline. Green means it's possible. Yellow means too many losses will fail. Red means you cannot. Does not account for Loss Streak bonus."
-      >?</span
-    >
+    <span class="circle" [ngxTooltip]="dailyFrontlineTooltip">?</span>
     <input
       type="date"
       name="goalDate"
@@ -125,7 +121,9 @@
       Frontline
       <span
         class="circle"
-        title="How many wins of each type required to get to the goal level. Click the + to add XP for the specified match"
+        [ngxTooltip]="
+          'How many wins of each type required to get to the goal level. Click the + to add XP for the specified match result. Frontline estimates do not account for the bonus XP from a loss streak.'
+        "
         >?</span
       >
     </h2>
@@ -133,7 +131,9 @@
       Frontline Loss Streak
       <span
         class="circle"
-        title="How many third-place losses in a row you've had in Frontline. This will give you a bonus to XP. Increments on a third-place loss. Not affected on a second-place loss. Resets on a win."
+        [ngxTooltip]="
+          'How many third-place losses in a row you\'ve had since a win in Frontline. This will give you a bonus to XP. Increments on a third-place loss. Not affected on a second-place loss. Resets on a win.'
+        "
         >?</span
       >
       <input
@@ -149,7 +149,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      title="Add Frontline Daily 1st Place"
+      [ngxTooltip]="'Add Frontline Daily 1st Place'"
       (click)="addFrontlineProgress(1, true)"
     >
       +
@@ -160,7 +160,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      title="Add Frontline Daily 2nd Place"
+      [ngxTooltip]="'Add Frontline Daily 2nd Place'"
       (click)="addFrontlineProgress(2, true)"
     >
       +
@@ -171,7 +171,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      title="Add Frontline Daily 3rd Place"
+      [ngxTooltip]="'Add Frontline Daily 3rd Place'"
       (click)="addFrontlineProgress(3, true)"
     >
       +
@@ -180,14 +180,16 @@
     <span [class]="frontLineDailyLossesClass()">Daily Frontline </span>
     <span
       class="circle"
-      title="Note: Does not account for the bonus XP from a loss streak"
+      [ngxTooltip]="
+        'Note: Does not account for the bonus XP from a loss streak'
+      "
       >!</span
     >
   </div>
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      title="Add Frontline 1st Place"
+      [ngxTooltip]="'Add Frontline 1st Place'"
       (click)="addFrontlineProgress(1, false)"
     >
       +
@@ -197,7 +199,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      title="Add Frontline 2nd Place"
+      [ngxTooltip]="'Add Frontline 2nd Place'"
       (click)="addFrontlineProgress(2, false)"
     >
       +
@@ -207,7 +209,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      title="Add Frontline 3rd Place"
+      [ngxTooltip]="'Add Frontline 3rd Place'"
       (click)="addFrontlineProgress(3, false)"
     >
       +
@@ -215,7 +217,9 @@
     {{ frontLineLosses() }} 3rd Place Losses in Frontline
     <span
       class="circle"
-      title="Note: Does not account for the bonus XP from a loss streak"
+      [ngxTooltip]="
+        'Note: Does not account for the bonus XP from a loss streak'
+      "
       >!</span
     >
   </div>
@@ -223,7 +227,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      title="Add Crystalline Conflict Win"
+      [ngxTooltip]="'Add Crystalline Conflict Win'"
       (click)="addProgress(environment.crystallineWinExp)"
     >
       +
@@ -233,7 +237,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      title="Add Crystalline Conflict Loss"
+      [ngxTooltip]="'Add Crystalline Conflict Loss'"
       (click)="addProgress(environment.crystallineLossExp)"
     >
       +
@@ -244,7 +248,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      title="Add Rival Wings Win"
+      [ngxTooltip]="'Add Rival Wings Win'"
       (click)="addProgress(environment.rivalWingsWinExp)"
     >
       +
@@ -254,7 +258,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      title="Add Rival Wings Loss"
+      [ngxTooltip]="'Add Rival Wings Loss'"
       (click)="addProgress(environment.rivalWingsLossExp)"
     >
       +
@@ -262,3 +266,17 @@
     {{ rivalWingsLosses() }} Losses in Rival Wings
   </div>
 </div>
+<ng-template #dailyFrontlineTooltip>
+  Input the date you wish to reach the goal by. This will calculate how many
+  resets until the inputted date, and if you can reach your goal by that date
+  only using Daily Frontline.<br /><br />
+  <span class="daily-success"
+    >- Green means it's possible regardless of wins or losses.</span
+  ><br />
+  <span class="daily-warning">- Yellow means too many losses will fail.</span
+  ><br />
+  <span class="daily-fail"
+    >- Red means you cannot reach it before the goal date.</span
+  ><br /><br />
+  Does not account for Loss Streak bonus.
+</ng-template>
