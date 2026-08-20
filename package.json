@@ -1,6 +1,6 @@
 {
   "name": "malmstone-calculator",
-  "version": "0.0.0",
+  "version": "1.2.0",
   "description": "This application will help calculate how many PvP matches are required to achieve a given Malmstone level, with support for multiple characters.",
   "main": "index.js",
   "scripts": {
