@@ -301,7 +301,7 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
       this.currentCharacter().name !== ''
         ? this.currentCharacter().name
         : 'the Current Character';
-    if (confirm(`Are you sure you want to remove ${charName}?`)) {
+    if (window.confirm(`Are you sure you want to remove ${charName}?`)) {
       this.characterStateService.removeCurrentCharacter();
     }
   }
