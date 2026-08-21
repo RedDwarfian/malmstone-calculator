@@ -1,6 +1,6 @@
 {
   "name": "malmstone-calculator",
-  "version": "0.0.0",
+  "version": "1.2.0",
   "description": "This application will help calculate how many PvP matches are required to achieve a given Malmstone level, with support for multiple characters.",
   "main": "index.js",
   "scripts": {
@@ -15,29 +15,31 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^19.0.6",
-    "@angular/common": "^19.0.6",
-    "@angular/compiler": "^19.0.6",
-    "@angular/core": "^19.0.6",
-    "@angular/forms": "^19.0.6",
-    "@angular/platform-browser": "^19.0.6",
-    "@angular/platform-browser-dynamic": "^19.0.6",
-    "@angular/router": "^19.0.6",
+    "@angular/animations": "^22.1.2",
+    "@angular/common": "^22.1.2",
+    "@angular/compiler": "^22.1.2",
+    "@angular/core": "^22.1.2",
+    "@angular/forms": "^22.1.2",
+    "@angular/platform-browser": "^22.1.2",
+    "@angular/platform-browser-dynamic": "^22.1.2",
+    "@angular/router": "^22.1.2",
+    "ngx-google-analytics": "^14.0.1",
+    "ngx-smart-tooltip": "^19.0.2",
     "normalize.css": "^8.0.1",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "^0.15.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.0.7",
-    "@angular/cli": "^19.0.7",
-    "@angular/compiler-cli": "^19.0.6",
+    "@angular/build": "^22.1.4",
+    "@angular/cli": "^22.1.4",
+    "@angular/compiler-cli": "^22.1.2",
     "@eslint/js": "^9.17.0",
     "@types/jasmine": "~5.1.0",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.14.0",
     "husky": "^9.1.7",
+    "istanbul-lib-instrument": "^6.0.3",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -46,8 +48,9 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "lint-staged": "^15.3.0",
     "prettier": "3.4.2",
-    "typescript": "~5.5.2",
-    "typescript-eslint": "^8.19.1"
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.19.1",
+    "vitest": "^4.0.8"
   },
   "repository": {
     "type": "git",
@@ -70,5 +73,11 @@
       "eslint --cache --fix",
       "prettier --write"
     ]
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "esbuild@0.28.2": true,
+    "fsevents@2.3.3": true,
+    "lmdb@3.5.6": true
   }
 }

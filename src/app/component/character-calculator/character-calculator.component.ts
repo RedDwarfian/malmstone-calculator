@@ -7,17 +7,20 @@ import {
   signal,
   OnInit,
   OnDestroy,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CharacterXp } from '../../interface/character-xp.interface';
 import { CharacterXpStateService } from '../../service/character-xp-state.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { TooltipDirective } from 'ngx-smart-tooltip';
 
 @Component({
   selector: 'app-character-calculator',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, TooltipDirective],
   templateUrl: './character-calculator.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './character-calculator.component.scss',
 })
 export class CharacterCalculatorComponent implements OnInit, OnDestroy {
@@ -298,7 +301,7 @@ export class CharacterCalculatorComponent implements OnInit, OnDestroy {
       this.currentCharacter().name !== ''
         ? this.currentCharacter().name
         : 'the Current Character';
-    if (confirm(`Are you sure you want to remove ${charName}?`)) {
+    if (window.confirm(`Are you sure you want to remove ${charName}?`)) {
       this.characterStateService.removeCurrentCharacter();
     }
   }

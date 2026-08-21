@@ -1,5 +1,6 @@
 import { Injectable, WritableSignal, inject, signal } from '@angular/core';
 import { CharacterXp } from '../interface/character-xp.interface';
+import { ImportExportData } from '../interface/import-export-data.interface';
 import { LocalDataService } from './local-data.service';
 import { environment } from '../../environments/environment';
 
@@ -64,5 +65,44 @@ export class CharacterXpStateService {
       }
     }
     this.saveData();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  validateData(characterData: any): boolean {
+    if (
+      characterData === null ||
+      typeof characterData !== 'object' ||
+      Array.isArray(characterData)
+    ) {
+      return false;
+    }
+
+    const data = characterData as Partial<ImportExportData>;
+    if (!Array.isArray(data.characterArray)) {
+      return false;
+    }
+
+    if (
+      !Object.prototype.hasOwnProperty.call(data, 'deadlineDate') ||
+      (data.deadlineDate !== null && typeof data.deadlineDate !== 'string')
+    ) {
+      return false;
+    }
+
+    return data.characterArray.every((character): character is CharacterXp => {
+      if (character === null || typeof character !== 'object') {
+        return false;
+      }
+
+      const candidate = character as Partial<CharacterXp>;
+      return (
+        typeof candidate.name === 'string' &&
+        typeof candidate.server === 'string' &&
+        typeof candidate.currentLevel === 'number' &&
+        typeof candidate.currentProgress === 'number' &&
+        typeof candidate.goalLevel === 'number' &&
+        typeof candidate.cumulativeThirds === 'number'
+      );
+    });
   }
 }

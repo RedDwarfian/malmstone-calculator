@@ -1,0 +1,17 @@
+@use "../../styles/presets.scss";
+
+:host {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  padding: 0.25rem 0;
+  gap: 0.25rem;
+}
+
+button {
+  @include presets.button;
+  font-size: 0.75rem;
+  text-align: center;
+}
