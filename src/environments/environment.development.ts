@@ -182,4 +182,10 @@ export const environment: environmentInterface = {
       ],
     },
   ],
+  tippyProps: {
+    placement: 'top',
+    allowHTML: true,
+    theme: 'transcluded',
+    maxWidth: 300,
+  },
 };

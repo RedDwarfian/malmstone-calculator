@@ -1,13 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { TooltipDirective } from 'ngx-smart-tooltip';
+import { NGX_TIPPY_CONFIG, NgxTippyModule } from 'ngx-tippy-wrapper';
 import { ImportExportData } from '../../interface/import-export-data.interface';
 import { CharacterXpStateService } from '../../service/character-xp-state.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-character-import-export',
-  imports: [TooltipDirective],
+  imports: [NgxTippyModule],
   templateUrl: './character-import-export.component.html',
   styleUrl: './character-import-export.component.scss',
+  providers: [{ provide: NGX_TIPPY_CONFIG, useValue: environment.tippyProps }],
 })
 export class CharacterImportExportComponent {
   private characterStateService = inject(CharacterXpStateService);

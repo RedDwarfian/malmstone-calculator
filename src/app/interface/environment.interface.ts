@@ -1,3 +1,4 @@
+import { NgxTippyProps } from 'ngx-tippy-wrapper';
 import { CharacterXp } from './character-xp.interface';
 
 export interface environmentInterface {
@@ -15,6 +16,7 @@ export interface environmentInterface {
   rivalWingsLossExp: number;
   newCharacterDefaults: CharacterXp;
   regions: Region[];
+  tippyProps: NgxTippyProps;
 }
 
 export interface Region {

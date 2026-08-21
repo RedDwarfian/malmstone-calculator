@@ -14,14 +14,15 @@ import { CharacterXpStateService } from '../../service/character-xp-state.servic
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { TooltipDirective } from 'ngx-smart-tooltip';
+import { NGX_TIPPY_CONFIG, NgxTippyModule } from 'ngx-tippy-wrapper';
 
 @Component({
   selector: 'app-character-calculator',
-  imports: [FormsModule, ReactiveFormsModule, TooltipDirective],
+  imports: [FormsModule, ReactiveFormsModule, NgxTippyModule],
   templateUrl: './character-calculator.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './character-calculator.component.scss',
+  providers: [{ provide: NGX_TIPPY_CONFIG, useValue: environment.tippyProps }],
 })
 export class CharacterCalculatorComponent implements OnInit, OnDestroy {
   private characterStateService = inject(CharacterXpStateService);

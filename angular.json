@@ -30,7 +30,8 @@
             ],
             "styles": [
               "node_modules/normalize.css/normalize.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/tippy.js/dist/tippy.css"
             ],
             "scripts": []
           },

@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "^22.1.2",
     "@angular/router": "^22.1.2",
     "ngx-google-analytics": "^14.0.1",
-    "ngx-smart-tooltip": "^19.0.2",
+    "ngx-tippy-wrapper": "^6.3.0",
     "normalize.css": "^8.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"

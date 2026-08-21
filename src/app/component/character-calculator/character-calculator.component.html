@@ -1,7 +1,7 @@
 <button
   class="remove_button"
   (click)="removeCurrentCharacter()"
-  [ngxTooltip]="'Delete this character'"
+  ngxTippy="Delete this character"
 >
   &times;
 </button>
@@ -19,7 +19,7 @@
     Server
     <span
       class="circle"
-      [ngxTooltip]="'This data is only saved in your browser\'s Local Storage.'"
+      ngxTippy="This data is only saved in your browser's Local Storage."
       >?</span
     >
     <select
@@ -90,7 +90,7 @@
   <div>XP NEEDED: {{ xpNeeded() }}</div>
   <label>
     Goal Deadline
-    <span class="circle" [ngxTooltip]="dailyFrontlineTooltip">?</span>
+    <span class="circle" [ngxTippy]="dailyFrontlineTooltip">?</span>
     <input
       type="date"
       name="goalDate"
@@ -121,9 +121,7 @@
       Frontline
       <span
         class="circle"
-        [ngxTooltip]="
-          'How many wins of each type required to get to the goal level. Click the + to add XP for the specified match result. Frontline estimates do not account for the bonus XP from a loss streak.'
-        "
+        ngxTippy="How many wins of each type required to get to the goal level. Click the + to add XP for the specified match result. Frontline estimates do not account for the bonus XP from a loss streak."
         >?</span
       >
     </h2>
@@ -131,9 +129,7 @@
       Frontline Loss Streak
       <span
         class="circle"
-        [ngxTooltip]="
-          'How many third-place losses in a row you\'ve had since a win in Frontline. This will give you a bonus to XP. Increments on a third-place loss. Not affected on a second-place loss. Resets on a win.'
-        "
+        ngxTippy="How many third-place losses in a row you\'ve had since a win in Frontline. This will give you a bonus to XP. Increments on a third-place loss. Not affected on a second-place loss. Resets on a win."
         >?</span
       >
       <input
@@ -149,7 +145,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      [ngxTooltip]="'Add Frontline Daily 1st Place'"
+      ngxTippy="Add Frontline Daily 1st Place"
       (click)="addFrontlineProgress(1, true)"
     >
       +
@@ -160,7 +156,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      [ngxTooltip]="'Add Frontline Daily 2nd Place'"
+      ngxTippy="Add Frontline Daily 2nd Place"
       (click)="addFrontlineProgress(2, true)"
     >
       +
@@ -171,7 +167,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      [ngxTooltip]="'Add Frontline Daily 3rd Place'"
+      ngxTippy="Add Frontline Daily 3rd Place"
       (click)="addFrontlineProgress(3, true)"
     >
       +
@@ -180,16 +176,14 @@
     <span [class]="frontLineDailyLossesClass()">Daily Frontline </span>
     <span
       class="circle"
-      [ngxTooltip]="
-        'Estimates do not account for the bonus XP from a loss streak'
-      "
+      ngxTippy="Estimates do not account for the bonus XP from a loss streak"
       >!</span
     >
   </div>
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      [ngxTooltip]="'Add Frontline 1st Place'"
+      ngxTippy="Add Frontline 1st Place"
       (click)="addFrontlineProgress(1, false)"
     >
       +
@@ -199,7 +193,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      [ngxTooltip]="'Add Frontline 2nd Place'"
+      ngxTippy="Add Frontline 2nd Place"
       (click)="addFrontlineProgress(2, false)"
     >
       +
@@ -209,7 +203,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      [ngxTooltip]="'Add Frontline 3rd Place'"
+      ngxTippy="Add Frontline 3rd Place"
       (click)="addFrontlineProgress(3, false)"
     >
       +
@@ -217,9 +211,7 @@
     {{ frontLineLosses() }} 3rd Place Losses in Frontline
     <span
       class="circle"
-      [ngxTooltip]="
-        'Estimates do not account for the bonus XP from a loss streak'
-      "
+      ngxTippy="Estimates do not account for the bonus XP from a loss streak"
       >!</span
     >
   </div>
@@ -227,7 +219,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      [ngxTooltip]="'Add Crystalline Conflict Win'"
+      ngxTippy="Add Crystalline Conflict Win"
       (click)="addProgress(environment.crystallineWinExp)"
     >
       +
@@ -237,7 +229,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      [ngxTooltip]="'Add Crystalline Conflict Loss'"
+      ngxTippy="Add Crystalline Conflict Loss"
       (click)="addProgress(environment.crystallineLossExp)"
     >
       +
@@ -248,7 +240,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      [ngxTooltip]="'Add Rival Wings Win'"
+      ngxTippy="Add Rival Wings Win"
       (click)="addProgress(environment.rivalWingsWinExp)"
     >
       +
@@ -258,7 +250,7 @@
   <div class="win_readout_section">
     <button
       class="add_win_button"
-      [ngxTooltip]="'Add Rival Wings Loss'"
+      ngxTippy="Add Rival Wings Loss"
       (click)="addProgress(environment.rivalWingsLossExp)"
     >
       +
